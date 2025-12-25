@@ -1,21 +1,30 @@
+Dans ce TP, j'ai accompli les réalisations suivantes :
 
-Dans ce TP, j'ai réalisé les tâches suivantes :
+- Conversion d'une interface HTML statique en une application web Symfony interactive et fonctionnelle
 
-- Transformation d'une page HTML statique en application Symfony dynamique
-- Création d'un DTO `ProductOrder` pour encapsuler les données du formulaire (quantité et couleur)
-- Développement d'un FormType `ProductOrderType` avec validation :
-  - Champ quantité (IntegerType) validé entre 1 et 10 avec contrainte `Assert\Range`
-  - Sélecteur de couleur (ChoiceType) avec trois options : Matte Black, Pearl White, Silver
-  - Bouton de soumission "Add to Cart" (SubmitType)
-- Création du contrôleur `ProductController` pour gérer l'affichage et la soumission du formulaire
-- Implémentation de la validation automatique et de la protection CSRF
-- Personnalisation de la template Twig (`templates/product/index.html.twig`) en utilisant les helpers Symfony :
-  - `{{ form_start() }}` pour générer la balise form avec CSRF
-  - `{{ form_widget() }}` pour afficher les champs
-  - `{{ form_label() }}` pour les labels
-  - `{{ form_end() }}` pour fermer le formulaire
-- Intégration de Bootstrap 5.3.2 pour conserver le design responsive
-- Gestion de l'image du produit stockée localement dans `public/images/headphones.jpg`
-- Utilisation de la fonction `{{ asset() }}` pour afficher l'image
-- Ajout de messages flash de confirmation après ajout au panier
-- Application des bonnes pratiques Symfony : séparation des responsabilités (DTO, FormType, Controller, Template)
+- Mise en place d'un objet de transfert de données `ProductOrder` servant à structurer les informations du formulaire (nombre d'unités et teinte sélectionnée)
+
+- Élaboration d'un FormType `ProductOrderType` incluant des règles de validation :
+  - Un champ numérique (IntegerType) contrôlé entre 1 et 10 unités grâce à la contrainte `Assert\Range`
+  - Un menu déroulant (ChoiceType) proposant trois variantes chromatiques : Matte Black, Pearl White et Silver
+  - Un bouton d'envoi "Add to Cart" (SubmitType)
+
+- Implémentation du contrôleur `ProductController` chargé de l'affichage initial et du traitement des données soumises
+
+- Intégration de la validation côté serveur et de la sécurité anti-CSRF
+
+- Configuration du template Twig `templates/product/index.html.twig` en exploitant les fonctions natives Symfony :
+  - `{{ form_start() }}` pour initialiser le formulaire avec token de sécurité
+  - `{{ form_widget() }}` pour le rendu des champs de saisie
+  - `{{ form_label() }}` pour l'affichage des étiquettes
+  - `{{ form_end() }}` pour la clôture du formulaire
+
+- Incorporation de Bootstrap 5.3.2 garantissant une interface adaptative
+
+- Organisation du fichier image du produit dans le répertoire `public/images/headphones.jpg`
+
+- Exploitation de la fonction `{{ asset() }}` pour l'intégration des ressources visuelles
+
+- Configuration d'un système de notifications flash confirmant l'ajout d'articles au panier
+
+- Respect de l'architecture Symfony avec une séparation claire des couches (DTO, FormType, Contrôleur, Vue)
