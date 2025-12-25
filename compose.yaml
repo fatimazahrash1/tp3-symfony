@@ -1,0 +1,46 @@
+services:
+    php:
+        image: php:8.1-fpm
+        container_name: tp3-php
+        working_dir: /var/www/html
+        volumes:
+            - ./:/var/www/html
+        networks:
+            - tp3-network
+        environment:
+            - PHP_FPM_LISTEN=9000
+        command: >
+            sh -c "
+            apt-get update && 
+            apt-get install -y git unzip libzip-dev libicu-dev libxml2-dev curl &&
+            docker-php-ext-install pdo_mysql zip intl opcache &&
+            echo 'PHP-FPM starting...' &&
+            php-fpm -F
+            "
+        healthcheck:
+            test: ["CMD", "php-fpm-healthcheck"]
+            interval: 10s
+            timeout: 3s
+            retries: 3
+
+    nginx:
+        image: nginx:alpine
+        container_name: tp3-nginx
+        ports:
+            - "8082:80"
+        volumes:
+            - ./:/var/www/html
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            - tp3-network
+        depends_on:
+            - php
+        healthcheck:
+            test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+            interval: 10s
+            timeout: 3s
+            retries: 3
+
+networks:
+    tp3-network:
+        driver: bridge
